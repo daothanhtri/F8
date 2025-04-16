@@ -1,0 +1,29 @@
+.content {
+  max-width: 800px;
+  margin: auto;
+}
+
+.content img {
+  max-width: 100%;
+}
+
+h1 + p {
+  margin-top: 30px;
+}
+
+h2 + p {
+  margin-top: 20px;
+}
+
+p,
+ul,
+ol {
+  margin-top: 60px;
+}
+
+figcaption,
+figcaption > a {
+  font-size: 12px;
+  text-align: center;
+  color: #706a6a;
+}

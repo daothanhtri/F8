@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism-okaidia.min.css"
+    />
+    <title>Blog</title>
+  </head>
+  <body>
+    <a href="./index.html">Home</a>
+
+    <h1>Xây Dựng Ứng Dụng Todolist</h1>
+
+    <ul>
+      <li><a href="#1">Bước 1</a></li>
+      <li><a href="#2">Bước 2</a></li>
+      <li><a href="#3">Bước 3</a></li>
+      <li><a href="#4">Bước 4</a></li>
+    </ul>
+
+    <p>
+      Chào bạn! Hôm nay chúng ta sẽ cùng nhau xây dựng một ứng dụng Todo list
+      đơn giản sử dụng HTML, CSS và JavaScript. Ứng dụng này sẽ có các chức năng
+      cơ bản như thêm công việc, hiển thị danh sách công việc và xóa công việc
+      đã hoàn thành. Đây là một dự án tuyệt vời để bạn bắt đầu làm quen với lập
+      trình web front-end. Hãy cùng bắt đầu nhé!
+    </p>
+
+    <h2 id="1">Bước 1: Thiết lập cấu trúc HTML</h2>
+
+    <p>
+      Đầu tiên, chúng ta cần tạo cấu trúc HTML cho ứng dụng Todo list. Cấu trúc
+      này sẽ bao gồm một ô nhập liệu để người dùng nhập công việc, một nút để
+      thêm công việc và một danh sách để hiển thị các công việc đã thêm.
+    </p>
+
+    <pre class="language-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+        &lt;title&gt;Todo List Đơn Giản&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&quot;container&quot;&gt;
+            &lt;h1&gt;Todo List&lt;/h1&gt;
+            &lt;div class=&quot;input-section&quot;&gt;
+                &lt;input type=&quot;text&quot; id=&quot;taskInput&quot; placeholder=&quot;Th&ecirc;m c&ocirc;ng việc mới&quot;&gt;
+                &lt;button id=&quot;addButton&quot;&gt;Th&ecirc;m&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;ul id=&quot;taskList&quot;&gt;
+                &lt;!-- Danh s&aacute;ch c&ocirc;ng việc sẽ được hiển thị ở đ&acirc;y --&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <h3>Giải thích:</h3>
+
+    <ul>
+      <li>
+        <code>&lt;!DOCTYPE html&gt;</code>: Khai báo loại tài liệu là HTML5.
+      </li>
+      <li>
+        <code>&lt;html lang=&quot;vi&quot;&gt;</code>: Thẻ gốc html với thuộc
+        tính <code>lang="vi"</code> chỉ định ngôn ngữ của trang là tiếng Việt.
+      </li>
+      <li>
+        <code>&lt;head&gt;</code>: Chứa các thông tin meta của trang như bộ mã
+        ký tự (<code>charset="UTF-8"</code>), cài đặt viewport cho responsive
+        (<code>&lt;meta name=&quot;viewport&quot;...&gt;</code>), tiêu đề trang
+        (<code>&lt;title&gt;</code>), và liên kết đến file CSS (<code
+          >&lt;link rel=&quot;stylesheet&quot;... /&gt;</code
+        >).
+      </li>
+      <li>
+        <code
+          >&lt;link rel=&quot;stylesheet&quot;
+          href=&quot;style.css&quot;&gt;</code
+        >: Liên kết file CSS có tên <code>style.css</code> để định dạng giao
+        diện.
+      </li>
+      <li><code>&lt;body&gt;</code>: Chứa nội dung hiển thị của trang web.</li>
+      <li>
+        <code>&lt;div class=&quot;container&quot;&gt;</code>: Một container
+        chính để bao bọc toàn bộ nội dung todo list.
+      </li>
+      <li>
+        <code>&lt;h1&gt;Todo List&lt;/h1&gt;</code>: Tiêu đề chính của ứng dụng.
+      </li>
+      <li>
+        <code>&lt;div class=&quot;input-section&quot;&gt;</code>: Khu vực chứa ô
+        nhập liệu và nút thêm công việc.
+      </li>
+      <li>
+        <code
+          >&lt;input type=&quot;text&quot; id=&quot;taskInput&quot;
+          placeholder=&quot;Th&ecirc;m c&ocirc;ng việc mới&quot;&gt;</code
+        >: Ô nhập liệu văn bản với <code>id="taskInput"</code> để JavaScript có
+        thể truy cập, và <code>placeholder</code> hiển thị gợi ý.
+      </li>
+      <li>
+        <code
+          >&lt;button
+          id=&quot;addButton&quot;&gt;Th&ecirc;m&lt;/button&gt;</code
+        >: Nút "Thêm" với <code>id="addButton"</code> để JavaScript có thể gắn
+        sự kiện.
+      </li>
+      <li>
+        <code>&lt;ul id=&quot;taskList&quot;&gt;</code>: Danh sách không thứ tự
+        <code>ul</code> với <code>id="taskList"</code> để hiển thị các công
+        việc. Các công việc sẽ được thêm vào đây bằng JavaScript.
+      </li>
+      <li>
+        <code
+          >&lt;!-- Danh s&aacute;ch c&ocirc;ng việc sẽ được hiển thị ở đ&acirc;y
+          --&gt;</code
+        >: Chú thích cho biết vị trí danh sách công việc sẽ hiển thị.
+      </li>
+      <li>
+        <code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code>:
+        Liên kết file JavaScript có tên <code>script.js</code> để thêm chức năng
+        cho ứng dụng.
+      </li>
+    </ul>
+
+    <h2 id="2">Bước 2: Thêm một chút phong cách với CSS (tùy chọn)</h2>
+
+    <p>
+      Mặc dù không bắt buộc, việc thêm một chút CSS sẽ giúp ứng dụng của bạn
+      trông đẹp mắt và dễ sử dụng hơn. Hãy tạo một file
+      <code>style.css</code> và thêm vào đoạn code sau:
+    </p>
+
+    <pre class="language-css"><code>body {
+        font-family: sans-serif;
+        margin: 0;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 400px;
+    }
+    
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    
+    .input-section {
+        display: flex;
+        margin-bottom: 15px;
+    }
+    
+    #taskInput {
+        flex-grow: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-right: 8px;
+    }
+    
+    #addButton {
+        padding: 10px 15px;
+        border: none;
+        background-color: #5cb85c;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    #addButton:hover {
+        background-color: #4cae4c;
+    }
+    
+    #taskList li {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    #taskList li:last-child {
+        border-bottom: none;
+    }
+    
+    .delete-button {
+        background-color: #d9534f;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .delete-button:hover {
+        background-color: #c9302c;
+    }</code></pre>
+
+    <h3>Giải thích:</h3>
+
+    <ul>
+      <li>
+        <code>body</code>: Định dạng chung cho toàn bộ trang, bao gồm font chữ,
+        màu nền, căn giữa nội dung theo chiều dọc và ngang.
+      </li>
+      <li>
+        <code>.container</code>: Định dạng cho container chính, bao gồm màu nền
+        trắng, padding, bo góc, đổ bóng và chiều rộng cố định.
+      </li>
+      <li><code>h1</code>: Định dạng tiêu đề, căn giữa và màu chữ.</li>
+      <li>
+        <code>.input-section</code>: Định dạng khu vực nhập liệu, sử dụng
+        <code>flexbox</code> để sắp xếp các phần tử theo hàng ngang.
+      </li>
+      <li>
+        <code>#taskInput</code>: Định dạng ô nhập liệu, bao gồm padding, border,
+        bo góc và margin bên phải.
+      </li>
+      <li>
+        <code>#addButton</code>: Định dạng nút "Thêm", bao gồm padding, màu nền,
+        màu chữ, bo góc và con trỏ chuột.
+      </li>
+      <li>
+        <code>#addButton:hover</code>: Hiệu ứng hover cho nút "Thêm" khi di
+        chuột vào.
+      </li>
+      <li>
+        <code>#taskList li</code>: Định dạng mỗi mục công việc trong danh sách,
+        bao gồm padding, border dưới, sử dụng <code>flexbox</code> để căn chỉnh
+        nội dung bên trong và khoảng cách giữa các phần tử.
+      </li>
+      <li>
+        <code>#taskList li:last-child</code>: Loại bỏ border dưới cho mục công
+        việc cuối cùng.
+      </li>
+      <li>
+        <code>.delete-button</code>: Định dạng nút xóa, tương tự như nút "Thêm"
+        nhưng với màu nền đỏ.
+      </li>
+      <li><code>.delete-button:hover</code>: Hiệu ứng hover cho nút xóa.</li>
+    </ul>
+
+    <h2 id="3">Bước 3: Thêm chức năng thêm công việc với JavaScript</h2>
+
+    <p>
+      Bây giờ là phần quan trọng nhất: thêm chức năng cho ứng dụng bằng
+      JavaScript. Hãy tạo một file <code>script.js</code> và viết đoạn code sau:
+    </p>
+
+    <pre
+      class="language-js"
+    ><code>const taskInput = document.getElementById('taskInput');
+const addButton = document.getElementById('addButton');
+const taskList = document.getElementById('taskList');
+
+addButton.addEventListener('click', addTask);
+
+function addTask() {
+    const taskText = taskInput.value.trim(); // Lấy giá trị từ ô input và loại bỏ khoảng trắng thừa
+
+    if (taskText !== "") { // Kiểm tra nếu không phải là chuỗi rỗng
+        const listItem = document.createElement('li'); // Tạo một phần tử li mới
+        listItem.textContent = taskText; // Đặt nội dung của li là văn bản công việc
+
+        // Thêm nút xóa cho mỗi công việc
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Xóa';
+        deleteButton.classList.add('delete-button'); // Thêm class CSS để định dạng
+        deleteButton.addEventListener('click', deleteTask); // Thêm sự kiện xóa
+
+        listItem.appendChild(deleteButton); // Thêm nút xóa vào li
+        taskList.appendChild(listItem); // Thêm li vào ul (danh sách công việc)
+
+        taskInput.value = ""; // Xóa nội dung ô input sau khi thêm công việc
+    }
+}</code></pre>
+
+    <h3>Giải thích:</h3>
+
+    <ul>
+      <li>
+        <code>const taskInput = document.getElementById('taskInput');</code>:
+        Lấy phần tử input bằng ID <code>taskInput</code> và gán vào biến
+        <code>taskInput</code>.
+      </li>
+      <li>
+        <code>const addButton = document.getElementById('addButton');</code>:
+        Lấy phần tử button bằng ID <code>addButton</code> và gán vào biến
+        <code>addButton</code>.
+      </li>
+      <li>
+        <code>const taskList = document.getElementById('taskList');</code>: Lấy
+        phần tử ul bằng ID <code>taskList</code> và gán vào biến
+        <code>taskList</code>.
+      </li>
+      <li>
+        <code>addButton.addEventListener('click', addTask);</code>: Gắn một
+        trình xử lý sự kiện <code>click</code> cho nút <code>addButton</code>.
+        Khi nút được click, hàm <code>addTask</code> sẽ được gọi.
+      </li>
+      <li>
+        <code>function addTask() { ... }</code>: Định nghĩa hàm
+        <code>addTask</code> để xử lý việc thêm công việc.
+      </li>
+      <li>
+        <code>const taskText = taskInput.value.trim();</code>: Lấy giá trị từ ô
+        input <code>(taskInput.value)</code> và sử dụng <code>.trim()</code> để
+        loại bỏ khoảng trắng thừa ở đầu và cuối chuỗi.
+      </li>
+      <li>
+        <code>if (taskText !== "") { ... }</code>: Kiểm tra xem
+        <code>taskText</code> có phải là chuỗi rỗng không. Nếu không rỗng, thực
+        hiện các bước tiếp theo.
+      </li>
+      <li>
+        <code>const listItem = document.createElement('li');</code>: Tạo một
+        phần tử li mới bằng JavaScript.
+      </li>
+      <li>
+        <code>listItem.textContent = taskText;</code>: Đặt nội dung văn bản của
+        phần tử li là giá trị của <code>taskText</code> (tức là công việc người
+        dùng nhập).
+      </li>
+      <li>
+        <code>const deleteButton = document.createElement('button');</code>: Tạo
+        một phần tử <code>button</code> mới.
+      </li>
+      <li>
+        <code>deleteButton.textContent = 'Xóa';</code>: Đặt nội dung văn bản của
+        nút là "Xóa".
+      </li>
+      <li>
+        <code>deleteButton.classList.add('delete-button');</code>: Thêm class
+        CSS <code>delete-button</code> vào nút để áp dụng các kiểu dáng đã định
+        nghĩa trong CSS.
+      </li>
+      <li>
+        <code>deleteButton.addEventListener('click', deleteTask);</code>: Gắn
+        trình xử lý sự kiện <code>click</code> cho nút xóa. Khi nút xóa được
+        click, hàm <code>deleteTask</code> sẽ được gọi (chúng ta sẽ định nghĩa
+        hàm này ở bước tiếp theo).
+      </li>
+      <li>
+        <code>listItem.appendChild(deleteButton);</code>: Thêm nút
+        <code>deleteButton</code> làm con của phần tử <code>listItem</code>.
+      </li>
+      <li>
+        <code>taskList.appendChild(listItem);</code>: Thêm phần tử
+        <code>listItem</code> (bao gồm cả nút xóa) làm con của phần tử
+        <code>taskList</code> (danh sách công việc), do đó hiển thị công việc
+        mới trên trang.
+      </li>
+      <li>
+        <code>taskInput.value = "";</code>: Đặt giá trị của ô input về chuỗi
+        rỗng sau khi thêm công việc, giúp người dùng có thể nhập công việc mới
+        dễ dàng.
+      </li>
+    </ul>
+
+    <h2 id="4">Bước 4: Thêm chức năng xóa công việc</h2>
+
+    <p>
+      Cuối cùng, chúng ta cần thêm chức năng xóa công việc khi người dùng click
+      vào nút "Xóa" bên cạnh mỗi công việc. Thêm hàm <code>deleteTask</code> vào
+      file <code>script.js</code>:
+    </p>
+    <pre class="language-js"><code>function deleteTask(event) {
+    const deleteButton = event.target; // Lấy nút xóa đã được click
+    const listItem = deleteButton.parentNode; // Lấy phần tử li cha của nút xóa
+    taskList.removeChild(listItem); // Xóa phần tử li khỏi danh sách công việc
+}</code></pre>
+
+    <h3>Giải thích:</h3>
+
+    <ul>
+      <li>
+        <code>function deleteTask(event) { ... }</code>: Định nghĩa hàm
+        deleteTask. Hàm này nhận một đối số <code>event</code> chứa thông tin về
+        sự kiện đã xảy ra (ở đây là sự kiện click).
+      </li>
+      <li>
+        <code>const deleteButton = event.target;</code>:
+        <code>event.target</code> trả về phần tử HTML đã kích hoạt sự kiện
+        (trong trường hợp này là nút xóa). Chúng ta gán nó cho biến
+        <code>deleteButton</code>.
+      </li>
+      <li>
+        <code>const listItem = deleteButton.parentNode;</code>:
+        <code>deleteButton.parentNode</code> trả về phần tử cha của
+        <code>deleteButton</code>, tức là phần tử li chứa công việc mà chúng ta
+        muốn xóa. Chúng ta gán nó cho biến <code>listItem</code>.
+      </li>
+      <li>
+        <code>taskList.removeChild(listItem);</code>: Sử dụng
+        <code>taskList.removeChild(listItem)</code> để xóa phần tử
+        <code>listItem</code> khỏi danh sách công việc <code>taskList</code>.
+        Điều này sẽ loại bỏ công việc đó khỏi giao diện người dùng.
+      </li>
+    </ul>
+
+    <h2>Hoàn thành!</h2>
+
+    <p>
+      Vậy là chúng ta đã hoàn thành việc xây dựng ứng dụng Todo list đơn giản
+      bằng HTML, CSS và JavaScript. Bây giờ bạn có thể mở file
+      <code>index.html</code> bằng trình duyệt và thử nghiệm ứng dụng của mình.
+      Bạn có thể thêm công việc, xem danh sách công việc và xóa công việc đã
+      hoàn thành.
+    </p>
+
+    <p>
+      Đây chỉ là một ứng dụng Todo list rất cơ bản. Bạn có thể tiếp tục phát
+      triển nó bằng cách thêm nhiều chức năng hơn như:
+    </p>
+
+    <ul>
+      <li>
+        <b>Chỉnh sửa công việc: </b>Cho phép người dùng chỉnh sửa nội dung công
+        việc đã thêm.
+      </li>
+      <li>
+        <b>Đánh dấu công việc đã hoàn thành: </b>Thêm checkbox hoặc nút để đánh
+        dấu công việc là đã hoàn thành và có thể hiển thị công việc đã hoàn
+        thành theo cách khác (ví dụ: gạch ngang).
+      </li>
+      <li>
+        <b>Lưu trữ dữ liệu: </b>Sử dụng LocalStorage hoặc các phương pháp khác
+        để lưu trữ danh sách công việc ngay cả khi trang web được đóng và mở
+        lại.
+      </li>
+      <li>
+        <b>Sắp xếp công việc: </b>Cho phép người dùng sắp xếp công việc theo thứ
+        tự ưu tiên hoặc thời gian thêm.
+      </li>
+    </ul>
+
+    <p>Chúc bạn thành công và có những trải nghiệm thú vị với lập trình web!</p>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.min.js"></script>
+  </body>
+</html>
